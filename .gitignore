@@ -1,0 +1,6 @@
+# git ignore file
+*.dll
+*.pdb
+*.exe
+*/obj/*
+*/bin/*
