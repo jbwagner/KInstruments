@@ -47,6 +47,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InstrumentData.cs" />
     <Compile Include="KInstrumentGeneric.cs" />
     <Compile Include="Kinstruments.cs" />
     <Compile Include="KinstrumentsWebserver.cs" />

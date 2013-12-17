@@ -9,7 +9,7 @@ namespace kinstruments
     public class KinstrumentsWebserver
     {
         static object webLock = new object();
-        public HttpListener WebServer { get; private set; }
+        public static HttpListener WebServer { get; private set; }
         IAsyncResult pendingWebAccept = null;
 
         public KinstrumentsWebserver(int port) : this( port, false )
@@ -31,21 +31,7 @@ namespace kinstruments
             }
         }
 
-        public void Once(PartModule part)
-        {
-            var data = new Dictionary<string, object>
-                        {
-                            { "rb_velocity", part.vessel.rb_velocity.magnitude },
-                            { "obt_velocity", part.vessel.obt_velocity.magnitude },
-                            { "x", part.vessel.upAxis.x },
-                            { "y", part.vessel.upAxis.y },
-                            { "z", part.vessel.upAxis.z },
-                        };
-
-            DataOnce(data);
-        }
-
-        public void DataOnce(IDictionary<string, object> data)
+        public void DataOnce(InstrumentData data)
         {
 
             lock (webLock)
@@ -70,13 +56,17 @@ namespace kinstruments
             }
         }
 
-        public void ProcessHttpRequest(HttpListenerContext ctx, IDictionary<string,object> data)
+        public void ProcessHttpRequest(HttpListenerContext ctx, InstrumentData data)
         {
             ctx.Response.StatusCode = (int)HttpStatusCode.OK;
             ctx.Response.ContentType = "text/plain";
             using (var tw = new System.IO.StreamWriter(ctx.Response.OutputStream))
             {
-                tw.WriteLine(data["rb_velocity"]);
+                try
+                {
+                    tw.WriteLine(data.SurfaceVelocity);
+                }
+                catch { }
             }
         }
     }

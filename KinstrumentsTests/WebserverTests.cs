@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using NUnit.Framework;
+using kinstruments;
 
 namespace KinstrumentsTests
 {
@@ -14,11 +15,8 @@ namespace KinstrumentsTests
         [Test]
         public void NoOp()
         {
-            var ki = new kinstruments.KinstrumentsWebserver(8882, true);
-            ki.DataOnce(new Dictionary<string, object>
-                        {
-                            { "sb_velocity", 10.1 },
-                        });
+            var ki = new KinstrumentsWebserver(8882, true);
+            ki.DataOnce(new InstrumentData() { SurfaceVelocity = 10.1 });
         }
     }
 }
