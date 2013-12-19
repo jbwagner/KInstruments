@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D2CAE470-9DBF-4DA6-9C1A-D742CE24009C}</ProjectGuid>
+    <ProjectGuid>{EE96BEB8-F956-4191-95DC-009F93A4BFF6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>kinstruments</RootNamespace>
-    <AssemblyName>kinstruments</AssemblyName>
+    <RootNamespace>KInstrumentsService</RootNamespace>
+    <AssemblyName>KInstrumentsService</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -36,8 +36,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -47,24 +45,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="KInstrumentGeneric.cs" />
-    <Compile Include="Kinstruments.cs" />
-    <Compile Include="KinstrumentsWebserver.cs" />
+    <Compile Include="InstrumentCommand.cs" />
+    <Compile Include="InstrumentData.cs" />
+    <Compile Include="KService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Parts\KinstrumentComms\part.cfg" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\KInstrumentsService\KInstrumentsService.csproj">
-      <Project>{ee96beb8-f956-4191-95dc-009f93a4bff6}</Project>
-      <Name>KInstrumentsService</Name>
+    <ProjectReference Include="..\lib\xr-http-json\JsonRpcHost\JsonRpcHost.csproj">
+      <Project>{e4f128ea-9728-49be-99d3-db16fcd7131c}</Project>
+      <Name>JsonRpcHost</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\lib\xr-http-json\WebServer\WebServer.csproj">
+      <Project>{20d55278-aea8-46b1-97f3-c2a6d0135ff5}</Project>
+      <Name>WebServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\lib\xr-include\xr-include\XR.Include.csproj">
+      <Project>{4eee3fd0-1850-4d3d-88a0-fa7982a6dda3}</Project>
+      <Name>XR.Include</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(TargetPath)" "C:\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program\GameData\Kinstruments\Plugins"</PostBuildEvent>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

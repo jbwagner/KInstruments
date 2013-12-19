@@ -57,6 +57,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\KInstrumentsService\KInstrumentsService.csproj">
+      <Project>{ee96beb8-f956-4191-95dc-009f93a4bff6}</Project>
+      <Name>KInstrumentsService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\kinstruments\Kinstruments.csproj">
       <Project>{d2cae470-9dbf-4da6-9c1a-d742ce24009c}</Project>
       <Name>Kinstruments</Name>
