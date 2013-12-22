@@ -14,17 +14,23 @@ namespace kinstruments
         {
         }
 
+        bool started = false;
+
         public KService Service { get; private set; }
         public KinstrumentsWebserver(int port, bool localhost)
         {
-            var tmp = new KService(port);
-            tmp.Start();
-            Service = tmp;
+            Service = new KService(port);
+        }
+
+        public void Start()
+        {
+            Service.Start();
+            started = true;
         }
 
         public void OnUpdate(Vessel v)
         {
-
+            if (!started) Start();
         }
 
         public InstrumentCommand PopCommand()

@@ -4,16 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EE96BEB8-F956-4191-95DC-009F93A4BFF6}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{398472EE-43A6-47BE-BCA8-6E29409F6B27}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KInstrumentsService</RootNamespace>
-    <AssemblyName>KInstrumentsService</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <RootNamespace>KIDevWeb</RootNamespace>
+    <AssemblyName>KIDevWeb</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -31,46 +32,30 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program\KSP_Data\Managed\Assembly-CSharp.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UnityEngine">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program\KSP_Data\Managed\UnityEngine.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InstrumentCommand.cs" />
-    <Compile Include="InstrumentData.cs" />
-    <Compile Include="KService.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\lib\xr-http-json\JsonRpcHost\JsonRpcHost.csproj">
-      <Project>{e4f128ea-9728-49be-99d3-db16fcd7131c}</Project>
-      <Name>JsonRpcHost</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\lib\xr-http-json\WebServer\WebServer.csproj">
-      <Project>{20d55278-aea8-46b1-97f3-c2a6d0135ff5}</Project>
-      <Name>WebServer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\lib\xr-include\xr-include\XR.Include.csproj">
-      <Project>{4eee3fd0-1850-4d3d-88a0-fa7982a6dda3}</Project>
-      <Name>XR.Include</Name>
-    </ProjectReference>
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="www\index.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="www\static\" />
+    <ProjectReference Include="..\KInstrumentsService\KInstrumentsService.csproj">
+      <Project>{ee96beb8-f956-4191-95dc-009f93a4bff6}</Project>
+      <Name>KInstrumentsService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\kinstruments\Kinstruments.csproj">
+      <Project>{d2cae470-9dbf-4da6-9c1a-d742ce24009c}</Project>
+      <Name>Kinstruments</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

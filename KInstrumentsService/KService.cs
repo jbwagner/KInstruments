@@ -5,6 +5,7 @@ using System.Text;
 using XR.Server.Http;
 using XR.Server.Json;
 using XR.Include;
+using System.IO;
 
 namespace KInstrumentsService
 {
@@ -95,7 +96,15 @@ namespace KInstrumentsService
                 var path = args.Request.Url.AbsolutePath;
                 var proc = GetProcessor();
                 var localpath = proc.VirtualToLocalPath(path);
-                if (System.IO.File.Exists(localpath))
+                if (Directory.Exists(localpath))
+                {
+                    var indexpage = Path.Combine(localpath,"index.html");
+                    if (File.Exists(indexpage))
+                        localpath = indexpage;
+                    path = string.Join("/", new string[] { path, "index.html" });
+                }
+
+                if (File.Exists(localpath))
                 {
                     args.SetResponseState(200);                    
                     args.SetResponseType(GetContentType(localpath));
@@ -103,7 +112,7 @@ namespace KInstrumentsService
 
                     if ( path.StartsWith("/static/") )
                     {
-                        using ( var fh = System.IO.File.OpenRead(localpath) )
+                        using ( var fh = File.OpenRead(localpath) )
                         {
                             var buf = new byte[8192];
                             int count = 0;
