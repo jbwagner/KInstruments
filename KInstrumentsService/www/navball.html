@@ -10,6 +10,8 @@
  <script src="static/js/jquery-2.0.3.js"></script>
  <script src="static/js/bootstrap.min.js"></script>
  <script src="static/js/utils.js"></script>
+ <script src="static/js/jsonproxy.js"></script>
+ <script src="static/js/rpc.js"></script>
 </head>
 <body style="background:black; color:silver">
  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -44,20 +46,21 @@
     <canvas id="navball" style="background:black; width:500;height:500;"></canvas>
 
      <script type="text/javascript">
-var data = navball_setup( document.getElementById("navball") );
-function wobble(d) 
-{
-  d.roll += 3;
-  d.pitch += 3;
+         var data = navball_setup(document.getElementById("navball"));
+         data.proxy = getRPC();
 
-  navball_once(d);
+         function run(d) {
 
-  setTimeout( function() { wobble(d) }, 100 );
+             var x = d.proxy.PollData();
+             setTimeout(function () { run(d) }, 200);
 
-} 
-data.roll = 12;
-data.pitch = -60;
-wobble(data);
+             d.roll = x.roll;
+             d.pitch = x.pitch;
+
+             navball_once(d);
+         }
+
+         run(data);
 
      </script>
     </div>

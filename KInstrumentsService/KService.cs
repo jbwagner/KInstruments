@@ -20,6 +20,9 @@ namespace KInstrumentsService
             }
         }
 
+        InstrumentData idata;
+        JsonServer<KRPCService> jserv;
+
         public string WwwRootDirectory { get; set; }
 
         HttpServer WebServer { get; set; }
@@ -27,12 +30,15 @@ namespace KInstrumentsService
         public KService( int port )
         {
             WebServer = new HttpServer();
+            jserv = new JsonServer<KRPCService>();
             if (!IsMono)
             {
                 WebServer.Localhostonly = true;
             }
             WebServer.Port = port;
-
+            jserv.PathMatch = new System.Text.RegularExpressions.Regex("/json/");
+            jserv.Service.Service = this;
+            WebServer.UriRequested += WebServer_Json;
             WebServer.UriRequested += WebServer_FileServer;
             WebServer.UriRequested += WebServer_FileIndex;
             WebServer.UriRequested += WebServer_FileNotFound;
@@ -41,6 +47,14 @@ namespace KInstrumentsService
         public void Stop()
         {
             WebServer.StopServer();
+        }
+
+        void WebServer_Json(object sender, UriRequestEventArgs args)
+        {
+            if (!args.Handled)
+            {
+                jserv.HandleJsonRequest(sender, args);
+            }
         }
 
         void WebServer_FileNotFound(object sender, UriRequestEventArgs args)
@@ -118,8 +132,8 @@ namespace KInstrumentsService
                             int count = 0;
                             do {
                                 count = fh.Read( buf, 0, buf.Length );
-                                if ( count < buf.Length ) break;
-                                args.ResponsStream.BaseStream.Write( buf, 0, count );
+                                if ( count > 0 ) args.ResponsStream.BaseStream.Write( buf, 0, count );
+                                if (count < buf.Length) break;
                             } while ( true );
                         }
                     } else {
@@ -170,7 +184,20 @@ namespace KInstrumentsService
 
         public void OnUpdate(Vessel v)
         {
+            lock (WebServer)
+            {
+                if (idata != null)
+                    idata.UpdateFromVessel(v);
+            }
+        }
 
+        public virtual InstrumentData GetData()
+        {
+            lock (WebServer)
+            {
+                if (idata == null) idata = new InstrumentData();
+                return idata;
+            }
         }
 
         public InstrumentCommand GetNextCommand()
