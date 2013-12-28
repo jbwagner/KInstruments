@@ -24,11 +24,12 @@ namespace KInstrumentsService
         JsonServer<KRPCService> jserv;
 
         public string WwwRootDirectory { get; set; }
-
+        public ILogger Log { get; set; }
         HttpServer WebServer { get; set; }
 
         public KService( int port )
         {
+            Log = new UnityLogger();
             WebServer = new HttpServer();
             jserv = new JsonServer<KRPCService>();
             if (!IsMono)
@@ -38,10 +39,16 @@ namespace KInstrumentsService
             WebServer.Port = port;
             jserv.PathMatch = new System.Text.RegularExpressions.Regex("/json/");
             jserv.Service.Service = this;
+            WebServer.UriRequested += WebServer_UriRequested;
             WebServer.UriRequested += WebServer_Json;
             WebServer.UriRequested += WebServer_FileServer;
             WebServer.UriRequested += WebServer_FileIndex;
             WebServer.UriRequested += WebServer_FileNotFound;
+        }
+
+        void WebServer_UriRequested(object sender, UriRequestEventArgs args)
+        {
+            Log.Print("requested {0}", args.Request.Url);
         }
 
         public void Stop()
@@ -53,7 +60,16 @@ namespace KInstrumentsService
         {
             if (!args.Handled)
             {
-                jserv.HandleJsonRequest(sender, args);
+                try
+                {
+                    Log.Print("json handler");
+                    jserv.HandleJsonRequest(sender, args);
+                }
+                catch (Exception e)
+                {
+                    Log.Print("exception!: {0}", e);
+                    throw;
+                }
             }
         }
 

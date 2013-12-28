@@ -1,0 +1,12 @@
+syntax: glob
+bin/**
+*.dll
+*.pdb
+*.user
+*.cache
+*.suo
+*.docstates
+obj/**
+_ReSharper.*
+*.orig
+dist/**

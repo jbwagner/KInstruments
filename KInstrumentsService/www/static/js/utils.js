@@ -66,7 +66,7 @@ function navball_once( ndata )
   $("#pitchtext").text( pitch );
 
   ndata.ctx.translate( ndata.canv.width/2, ndata.canv.height/2);
-  ndata.ctx.rotate( d2r(roll) );
+  ndata.ctx.rotate( d2r(roll*-1) );
 
   ndata.ctx.translate( 0, (pitch * pfact) );
   ndata.ctx.drawImage( ndata.hor, -ndata.hor.width/2, -ndata.hor.height/2, ndata.hor.width, ndata.hor.height );

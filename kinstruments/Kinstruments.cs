@@ -14,7 +14,7 @@ namespace kinstruments
 
         public override void OnStart(PartModule.StartState state)
         {
-            httpd = new KinstrumentsWebserver(8881);
+            httpd = KinstrumentsWebserver.GetInstance();
             base.OnStart(state);        
         }
 
@@ -32,7 +32,10 @@ namespace kinstruments
         public override void OnUpdate()
         {
             base.OnUpdate();
-            httpd.OnUpdate(vessel);
+            if (vessel.isActiveVessel)
+            {
+                httpd.OnUpdate(vessel);
+            }
         }
     }
 }

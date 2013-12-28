@@ -13,6 +13,7 @@ namespace KIDevWeb
         static void Main(string[] args)
         {
             var s = new KinstrumentsWebserver(8881, true);
+            s.Service.Log = new KInstrumentsService.BCLLogger();
             s.Service.WwwRootDirectory = System.IO.Path.Combine(Environment.CurrentDirectory, "www");
             s.Start();
 
@@ -21,7 +22,7 @@ namespace KIDevWeb
             do
             {
                 var d = s.Service.GetData();
-                k = Console.ReadKey().KeyChar.ToString();
+                k = Console.ReadKey(true).KeyChar.ToString();
                 if (k == "q")
                 {
                     d.Roll -= 2;
@@ -40,6 +41,9 @@ namespace KIDevWeb
                 {
                     d.Pitch += 4;
                 }
+
+                Console.Error.WriteLine("p={0} r={1}", d.Pitch, d.Roll);
+
             } while (true);
         }
     }

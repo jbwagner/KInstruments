@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>jayrock</id>
+        <version>0.9.16530</version>
+        <title>Jayrock</title>
+        <authors>Atif Aziz</authors>
+        <owners>Atif Aziz</owners>
+        <licenseUrl>http://www.opensource.org/licenses/lgpl-3.0.html</licenseUrl>
+        <projectUrl>http://jayrock.berlios.de/</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Jayrock is a modest implementation of JSON, JsonML and JSON-RPC for the Microsoft .NET Framework, including ASP.NET.</description>
+        <language>en-US</language>
+        <tags>json rpc ajax services</tags>
+        <dependencies>
+            <dependency id="jayrock-json" version="0.9.16530" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="..\bin\net-2.0\release\Jayrock.*" target="lib\net20" 
+              exclude="..\bin\net-2.0\release\Jayrock.Json.*;..\bin\net-2.0\release\Jayrock.Sandbox.*" />
+        <file src="..\bin\net-4.0\release\Jayrock.*" target="lib\net40" 
+              exclude="..\bin\net-4.0\release\Jayrock.Json.*;..\bin\net-4.0\release\Jayrock.Sandbox.*" />
+        <file src="..\src\Common\**\*.cs" target="src\Common" />
+        <file src="..\src\Jayrock\**\*.cs" target="src\Jayrock" />
+        <file src="..\COPYING.LESSER.txt" target="COPYING.LESSER.txt" />
+        <file src="..\COPYING.txt" target="COPYING.txt" />
+    </files>
+</package>

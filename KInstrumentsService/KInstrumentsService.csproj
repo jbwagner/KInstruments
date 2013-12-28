@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IKRPCService.cs" />
+    <Compile Include="ILogger.cs" />
     <Compile Include="InstrumentCommand.cs" />
     <Compile Include="InstrumentData.cs" />
     <Compile Include="KRPCService.cs">
