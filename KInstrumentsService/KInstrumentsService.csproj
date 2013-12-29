@@ -34,19 +34,9 @@
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Kerbal Space Program\KSP_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
-    <Reference Include="Jayrock, Version=0.9.12915.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\xr-http-json\JsonRpcHost\bin\Debug\Jayrock.dll</HintPath>
-    </Reference>
-    <Reference Include="Jayrock.Json, Version=0.9.12915.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\xr-http-json\JsonRpcHost\bin\Debug\Jayrock.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Jayrock.Sandbox">
-      <HintPath>..\lib\xr-http-json\JsonRpcHost\bin\Debug\Jayrock.Sandbox.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -60,16 +50,18 @@
     <Compile Include="ILogger.cs" />
     <Compile Include="InstrumentCommand.cs" />
     <Compile Include="InstrumentData.cs" />
-    <Compile Include="KRPCService.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="KRPCService.cs" />
     <Compile Include="KService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\lib\xr-http-json\JsonRpcHost\JsonRpcHost.csproj">
-      <Project>{e4f128ea-9728-49be-99d3-db16fcd7131c}</Project>
-      <Name>JsonRpcHost</Name>
+    <ProjectReference Include="..\JsonFxRPCServer\JsonFxRPCServer.csproj">
+      <Project>{2240a47c-d07d-431c-a9d1-b4de6e4e9cba}</Project>
+      <Name>JsonFxRPCServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\lib\jsonfx\src\JsonFx\JsonFx.csproj">
+      <Project>{3082284b-b579-4808-a4a4-d88dda4025cb}</Project>
+      <Name>JsonFx</Name>
     </ProjectReference>
     <ProjectReference Include="..\lib\xr-http-json\WebServer\WebServer.csproj">
       <Project>{20d55278-aea8-46b1-97f3-c2a6d0135ff5}</Project>

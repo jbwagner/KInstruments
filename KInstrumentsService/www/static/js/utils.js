@@ -3,9 +3,9 @@ function navball_setup( canv )
   var ctx = canv.getContext("2d");
   ndata = new Object();
   ndata.canv = canv;
-  ndata.pitch = 10;
-  ndata.roll = 15;
-  ndata.yaw = 0;
+  ndata.Pitch = 0;
+  ndata.Roll = 0;
+  ndata.Yaw = 0;
   ndata.ctx = ctx;
 
   ndata.bezel = new Image();
@@ -41,18 +41,18 @@ function navball_once( ndata )
   
   // look at my embarassinly ham-fisted math!
 
-  ndata.roll = ((ndata.roll + 180) % 360)-180;
+  ndata.roll = ((ndata.Roll + 180) % 360)-180;
 
-  if ( ndata.pitch > 270 ) {
-    ndata.pitch -= 360;
+  if ( ndata.Pitch > 270 ) {
+    ndata.Pitch -= 360;
   } else {
-    if ( ndata.pitch < -90 ) {
-      ndata.pitch += 360;
+    if ( ndata.Pitch < -90 ) {
+      ndata.Pitch += 360;
     }
   }
 
-  roll = ndata.roll;
-  pitch = ndata.pitch;
+  roll = ndata.Roll;
+  pitch = ndata.Pitch;
 
   if ( pitch > 90 ) {
     pitch = 180 - pitch;
@@ -62,11 +62,11 @@ function navball_once( ndata )
       roll = 180 - roll;
   }
 
-  $("#rolltext").text( roll );
-  $("#pitchtext").text( pitch );
+  $("#rolltext").text( Math.floor(roll) );
+  $("#pitchtext").text( Math.floor(pitch) );
 
   ndata.ctx.translate( ndata.canv.width/2, ndata.canv.height/2);
-  ndata.ctx.rotate( d2r(roll*-1) );
+  ndata.ctx.rotate( d2r(roll) );
 
   ndata.ctx.translate( 0, (pitch * pfact) );
   ndata.ctx.drawImage( ndata.hor, -ndata.hor.width/2, -ndata.hor.height/2, ndata.hor.width, ndata.hor.height );

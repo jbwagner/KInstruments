@@ -61,6 +61,7 @@ namespace kinstruments
         public void OnUpdate(Vessel v)
         {
             if (!started) Start();
+            Service.OnUpdate(v);
         }
 
         public InstrumentCommand PopCommand()

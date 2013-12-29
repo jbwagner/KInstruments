@@ -1,23 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using UnityEngine;
 
 namespace KInstrumentsService
 {
+    [DataContract]
     public class InstrumentData
     {
-        public double Heading { get; set; }
+        
+        [DataMember]
+        double Heading { get; set; }
+        [DataMember]
         public double Pitch { get; set; }
+        [DataMember]
         public double Roll { get; set; }
-
+        [DataMember]
         public double Altitude { get; set; }
+        [DataMember]
         public double SurfaceVelocity { get; set; }
+        [DataMember]
         public double OrbitalVelocity { get; set; }
-
+        [DataMember]
         public double Throttle { get; set; }
-
+        [DataMember]
         public int CurrentStage { get; set; }
 
         public void UpdateFromVessel(Vessel vessel)

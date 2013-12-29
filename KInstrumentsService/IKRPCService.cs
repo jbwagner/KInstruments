@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using XR.Server.Json;
+
+using JsonFxRPCServer;
 
 namespace KInstrumentsService
 {
-    public interface IKRPCService : IJsonRpcServiceContract
+    public interface IKRPCService 
     {
+        [JsonRPCMethod]
         InstrumentData PollData();
 
+        [JsonRPCMethod]
         void Throttle(ThrottleCommand cmd);
 
+        [JsonRPCMethod]
         void ToggleGear();
     }
 }

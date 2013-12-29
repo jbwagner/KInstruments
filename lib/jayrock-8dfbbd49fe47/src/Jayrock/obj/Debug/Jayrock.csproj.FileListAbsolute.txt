@@ -1,5 +1,0 @@
-C:\Users\inb\Dropbox\git\ksp\lib\jayrock-8dfbbd49fe47\bin\net-4.0\debug\Jayrock.dll
-C:\Users\inb\Dropbox\git\ksp\lib\jayrock-8dfbbd49fe47\bin\net-4.0\debug\Jayrock.pdb
-C:\Users\inb\Dropbox\git\ksp\lib\jayrock-8dfbbd49fe47\src\Jayrock\obj\Debug\Jayrock.csprojResolveAssemblyReference.cache
-C:\Users\inb\Dropbox\git\ksp\lib\jayrock-8dfbbd49fe47\src\Jayrock\obj\Debug\Jayrock.dll
-C:\Users\inb\Dropbox\git\ksp\lib\jayrock-8dfbbd49fe47\src\Jayrock\obj\Debug\Jayrock.pdb

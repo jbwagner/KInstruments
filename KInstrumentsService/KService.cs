@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using XR.Server.Http;
-using XR.Server.Json;
+
 using XR.Include;
 using System.IO;
+using JsonFxRPCServer;
 
 namespace KInstrumentsService
 {
@@ -21,30 +22,40 @@ namespace KInstrumentsService
         }
 
         InstrumentData idata;
-        JsonServer<KRPCService> jserv;
+
+        ServerProxy jsonrpc;
+        public KRPCService Service { get; private set; }
 
         public string WwwRootDirectory { get; set; }
         public ILogger Log { get; set; }
         HttpServer WebServer { get; set; }
 
+        
+
         public KService( int port )
         {
             Log = new UnityLogger();
             WebServer = new HttpServer();
-            jserv = new JsonServer<KRPCService>();
+            jsonrpc = new ServerProxy();
+            Service = new KRPCService();
             if (!IsMono)
             {
                 WebServer.Localhostonly = true;
             }
+
+            jsonrpc.AddHandlers((IKRPCService)Service);
+            Service.Service = this;
+
             WebServer.Port = port;
-            jserv.PathMatch = new System.Text.RegularExpressions.Regex("/json/");
-            jserv.Service.Service = this;
+
             WebServer.UriRequested += WebServer_UriRequested;
             WebServer.UriRequested += WebServer_Json;
             WebServer.UriRequested += WebServer_FileServer;
             WebServer.UriRequested += WebServer_FileIndex;
             WebServer.UriRequested += WebServer_FileNotFound;
+
         }
+
 
         void WebServer_UriRequested(object sender, UriRequestEventArgs args)
         {
@@ -60,15 +71,30 @@ namespace KInstrumentsService
         {
             if (!args.Handled)
             {
+                if (args.Request.Url.AbsolutePath != "/json/") return;
+                args.Handled = true;
                 try
                 {
-                    Log.Print("json handler");
-                    jserv.HandleJsonRequest(sender, args);
+                    
+                    var reqtype = args.Request.ContentType;
+                    var reqenc = args.Request.ContentEncoding;
+                    var len = args.Request.ContentLength64;
+
+                    var sr = new StreamReader(args.Request.InputStream);
+
+                    var m = jsonrpc.ReadMethod(sr);
+                    var r = jsonrpc.RunMethod(m);
+                    args.SetResponseState(200);
+                    args.SetResponseType("application/json");
+                    jsonrpc.WriteResult(r, args.ResponsStream);
+                   
                 }
                 catch (Exception e)
                 {
                     Log.Print("exception!: {0}", e);
-                    throw;
+                    args.SetResponseState(500);
+                    args.SetResponseType("text/plain");
+                    args.ResponsStream.WriteLine(e.ToString());
                 }
             }
         }
