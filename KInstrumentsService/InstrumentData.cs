@@ -10,15 +10,18 @@ namespace KInstrumentsService
     [DataContract]
     public class InstrumentData
     {
-        
         [DataMember]
-        double Heading { get; set; }
+        public string VesselName { get; set; }
+        [DataMember]
+        public double Heading { get; set; }
         [DataMember]
         public double Pitch { get; set; }
         [DataMember]
         public double Roll { get; set; }
         [DataMember]
         public double Altitude { get; set; }
+        [DataMember]
+        public double TerrainAltitude { get; set; }
         [DataMember]
         public double SurfaceVelocity { get; set; }
         [DataMember]
@@ -30,6 +33,7 @@ namespace KInstrumentsService
 
         public void UpdateFromVessel(Vessel vessel)
         {
+            VesselName = vessel.vesselName;
             var vesselMiddle = vessel.findWorldCenterOfMass();
             var up = (vesselMiddle - vessel.mainBody.position).normalized;
             var north = Vector3d.Exclude(up, (vessel.mainBody.position + vessel.mainBody.transform.up * (float)vessel.mainBody.Radius) - vesselMiddle).normalized;
@@ -45,6 +49,8 @@ namespace KInstrumentsService
             Pitch = pitch;
             Roll = roll;
             Altitude = vessel.altitude;
+            TerrainAltitude = vessel.terrainAltitude;
+
             CurrentStage = vessel.currentStage;
             SurfaceVelocity = vessel.rb_velocity.magnitude;
             

@@ -63,7 +63,8 @@ function navball_once( ndata )
   }
 
   $("#rolltext").text( Math.floor(roll) );
-  $("#pitchtext").text( Math.floor(pitch) );
+  $("#pitchtext").text(Math.floor(pitch));
+  $("#hdgtext").text(Math.floor(ndata.Heading));
 
   ndata.ctx.translate( ndata.canv.width/2, ndata.canv.height/2);
   ndata.ctx.rotate( d2r(roll) );

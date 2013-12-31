@@ -74,6 +74,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="www\radalt.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="www\footer.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

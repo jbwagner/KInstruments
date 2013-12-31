@@ -1,11 +1,12 @@
 <% xr-include src="/header.html" %>
 <div class="center">
 <div style="position:absolute; z-index:3">
-Roll: <span id="rolltext"></span>&deg;<br/>
-Pitch: <span id="pitchtext"></span>&deg;<br/>
+Roll: <span id="rolltext">0</span>&deg;<br/>
+Pitch: <span id="pitchtext">0</span>&deg;<br/>
 </div>
 <canvas id="navball" style="background:black; width:500;height:500;"></canvas>
-
+    <br />
+    <span id="hdgtext">0</span>&deg;
     <script type="text/javascript">
         var data = navball_setup(document.getElementById("navball"));
         data.proxy = getRPC();
@@ -17,6 +18,7 @@ Pitch: <span id="pitchtext"></span>&deg;<br/>
 
             d.Roll = x.Roll;
             d.Pitch = x.Pitch;
+            d.Heading = x.Heading;
 
             navball_once(d);
         }

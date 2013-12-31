@@ -29,9 +29,11 @@
 
    <div class="collapse navbar-collapse">
     <ul class="nav navbar-nav">
-     <li class='<% xr-IsActive param="/navball.html" %>'><a href="/navball.html">Nav Ball</a></li>
-     <li class='<% xr-IsActive param="/throttle.html" %>'><a href="/throttle.html">Throttle</a></li>
+     <% xr-ActiveMenuLink param="/navball.html,Nav Ball" %>
+     <% xr-ActiveMenuLink param="/radalt.html,Radar Alt" %>
+     <% xr-ActiveMenuLink param="/index.html,$VesselName" %>
     </ul>
+       
    </div><!--/.nav-collapse -->
   </div>
  </div>

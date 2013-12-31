@@ -54,7 +54,9 @@ namespace KInstrumentsService
             WebServer.UriRequested += WebServer_FileIndex;
             WebServer.UriRequested += WebServer_FileNotFound;
 
-            pageModels.Add(new KIWebContext() { PagePath = "/navball.html", Title = "Nav Ball" });
+            pageModels.Add(new KIWebContext(this) { PagePath = "/index.html", Title = "KInstruments Home" });
+            pageModels.Add(new KIWebContext(this) { PagePath = "/radalt.html", Title = "Radar Altitude" });            
+            pageModels.Add(new KIWebContext(this) { PagePath = "/navball.html", Title = "Nav Ball" });
         }
 
 
@@ -136,6 +138,7 @@ namespace KInstrumentsService
 
         KIWebContext GetPageModel(string abspath)
         {
+            abspath = abspath.Replace("//", "/");
             KIWebContext rv = (from x in pageModels where x.PagePath == abspath select x).FirstOrDefault();
             return rv;
         }

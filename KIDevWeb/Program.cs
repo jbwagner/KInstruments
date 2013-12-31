@@ -22,6 +22,7 @@ namespace KIDevWeb
             do
             {
                 var d = s.Service.GetData();
+                d.VesselName = "Test Vessel";
                 k = Console.ReadKey(true).KeyChar.ToString();
                 if (k == "q")
                 {
@@ -35,12 +36,16 @@ namespace KIDevWeb
                 if (k == "w")
                 {
                     d.Pitch -= 4;
+                    d.TerrainAltitude -= 100;
                 }
 
                 if (k == "s")
                 {
                     d.Pitch += 4;
+                    d.TerrainAltitude += 100;
                 }
+
+                
 
                 Console.Error.WriteLine("p={0} r={1}", d.Pitch, d.Roll);
 
