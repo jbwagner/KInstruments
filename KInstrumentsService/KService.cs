@@ -54,6 +54,7 @@ namespace KInstrumentsService
             WebServer.UriRequested += WebServer_FileIndex;
             WebServer.UriRequested += WebServer_FileNotFound;
 
+            pageModels.Add(new KIWebContext() { PagePath = "/navball.html", Title = "Nav Ball" });
         }
 
 
@@ -123,6 +124,8 @@ namespace KInstrumentsService
             { ".js", "text/javascript" },
         };
 
+        List<KIWebContext> pageModels = new List<KIWebContext>();
+
         public string GetContentType(string filename)
         {
             var ext = System.IO.Path.GetExtension(filename).ToLower();
@@ -131,9 +134,15 @@ namespace KInstrumentsService
             return rv;
         }
 
+        KIWebContext GetPageModel(string abspath)
+        {
+            KIWebContext rv = (from x in pageModels where x.PagePath == abspath select x).FirstOrDefault();
+            return rv;
+        }
+
         Processor GetProcessor()
         {
-            var proc = new Processor();
+            var proc = new MethodProcessor();
             if (WwwRootDirectory == null)
             {
                 proc.RootDirectory = this.GetType().Assembly.Location;
@@ -179,6 +188,7 @@ namespace KInstrumentsService
                             } while ( true );
                         }
                     } else {
+                        proc.Context = GetPageModel(path);
                         proc.Transform(path, args.ResponsStream);
                     }
                 }

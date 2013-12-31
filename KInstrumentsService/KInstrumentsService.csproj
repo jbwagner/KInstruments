@@ -50,6 +50,7 @@
     <Compile Include="ILogger.cs" />
     <Compile Include="InstrumentCommand.cs" />
     <Compile Include="InstrumentData.cs" />
+    <Compile Include="KIWebContext.cs" />
     <Compile Include="KRPCService.cs" />
     <Compile Include="KService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,6 +74,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="www\footer.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="www\header.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="www\index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

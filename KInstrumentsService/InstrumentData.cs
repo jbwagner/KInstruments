@@ -47,7 +47,7 @@ namespace KInstrumentsService
             Altitude = vessel.altitude;
             CurrentStage = vessel.currentStage;
             SurfaceVelocity = vessel.rb_velocity.magnitude;
-
+            
 #if false
             print(string.Format("pitch {0:0.0} heading {1:0.0}, roll {2:0.0} ",
                 pitch,
