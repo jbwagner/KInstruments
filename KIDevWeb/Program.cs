@@ -36,13 +36,13 @@ namespace KIDevWeb
                 if (k == "w")
                 {
                     d.Pitch -= 4;
-                    d.TerrainAltitude -= 100;
+                    d.Altitude -= 100;
                 }
 
                 if (k == "s")
                 {
                     d.Pitch += 4;
-                    d.TerrainAltitude += 100;
+                    d.Altitude += 100;
                 }
 
                 

@@ -10,6 +10,11 @@ namespace KInstrumentsService
     [DataContract]
     public class InstrumentData
     {
+        public InstrumentData()
+        {
+            VesselName = "n/a";
+        }
+
         [DataMember]
         public string VesselName { get; set; }
         [DataMember]
@@ -53,14 +58,7 @@ namespace KInstrumentsService
 
             CurrentStage = vessel.currentStage;
             SurfaceVelocity = vessel.rb_velocity.magnitude;
-            
-#if false
-            print(string.Format("pitch {0:0.0} heading {1:0.0}, roll {2:0.0} ",
-                pitch,
-                heading,
-                roll
-                ));
-#endif
+
         }
     }
 }

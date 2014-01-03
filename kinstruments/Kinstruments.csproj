@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="KInstrumentGeneric.cs" />
     <Compile Include="Kinstruments.cs" />
+    <Compile Include="KInstrumentsStartup.cs" />
     <Compile Include="KinstrumentsWebserver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
