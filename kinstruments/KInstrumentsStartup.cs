@@ -19,6 +19,7 @@ namespace kinstruments
                 if (!started)
                 {
                     var ws = KinstrumentsWebserver.GetInstance();
+                    ws.Service.InstrumentDataSource = new PollingInstrumentDataSource();
                     ws.Start();
                     started = true;
                 }

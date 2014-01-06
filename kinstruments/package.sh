@@ -17,5 +17,5 @@ cp ../*struments*.dll plugins/.
 
 cp -a ../../../Parts/* parts/.
 
-mkdir kinstruments
-mv parts plugins kinstruments
+mkdir Kinstruments
+mv parts plugins Kinstruments

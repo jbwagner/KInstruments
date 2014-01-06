@@ -12,7 +12,10 @@ namespace kinstruments
         {
             var id = new InstrumentData();
             var current_vessel = FlightGlobals.ActiveVessel;
-            id.UpdateFromVessel(current_vessel);
+            if (current_vessel != null)
+            {
+                id.UpdateFromVessel(current_vessel);
+            }
             return id;
         }
     }
