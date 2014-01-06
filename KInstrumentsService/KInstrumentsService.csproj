@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IInstrumentDataSource.cs" />
     <Compile Include="IKRPCService.cs" />
     <Compile Include="ILogger.cs" />
     <Compile Include="InstrumentCommand.cs" />

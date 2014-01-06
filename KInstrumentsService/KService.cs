@@ -21,7 +21,25 @@ namespace KInstrumentsService
             }
         }
 
+        public IInstrumentDataSource InstrumentDataSource { get; set; }
+
         InstrumentData idata;
+
+        public DateTime LastInstrumentUpdate { get; private set; }
+
+
+        InstrumentData InstrumentData
+        {
+            get
+            {
+                return idata;
+            }
+            set
+            {
+                LastInstrumentUpdate = DateTime.Now;
+                idata = value;
+            }
+        }
 
         ServerProxy jsonrpc;
         public KRPCService Service { get; private set; }
@@ -237,12 +255,14 @@ namespace KInstrumentsService
             WebServer.BeginListen();
         }
 
+        
         public void OnUpdate(Vessel v)
         {
             lock (WebServer)
             {
                 if (idata != null)
                     idata.UpdateFromVessel(v);
+                LastInstrumentUpdate = DateTime.Now;
             }
         }
 
@@ -251,6 +271,11 @@ namespace KInstrumentsService
             lock (WebServer)
             {
                 if (idata == null) idata = new InstrumentData();
+                if (InstrumentDataSource != null)
+                {
+                    if ( DateTime.Now.Subtract(LastInstrumentUpdate).TotalMilliseconds > 200 )
+                        idata = InstrumentDataSource.GetData();
+                }
                 return idata;
             }
         }
