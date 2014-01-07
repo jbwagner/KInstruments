@@ -1,0 +1,12 @@
+Put the contents of the kinstruments.zip file into your GameData folder.
+
+If done properly you should have:
+
+Squad
+Kinstruments
+ + Parts
+ + Plugins
+   + www
+   dll files
+
+Ian
