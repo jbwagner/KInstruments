@@ -75,6 +75,7 @@ namespace KInstrumentsService
             pageModels.Add(new KIWebContext(this) { PagePath = "/index.html", Title = "KInstruments Home" });
             pageModels.Add(new KIWebContext(this) { PagePath = "/radalt.html", Title = "Radar Altitude" });            
             pageModels.Add(new KIWebContext(this) { PagePath = "/navball.html", Title = "Nav Ball" });
+            pageModels.Add(new KIWebContext(this) { PagePath = "/hframe_nav_rad.html", Title = "Nav Ball + Radar Alt" });
         }
 
 

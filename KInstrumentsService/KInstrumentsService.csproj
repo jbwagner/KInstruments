@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IControlInput.cs" />
     <Compile Include="IInstrumentDataSource.cs" />
     <Compile Include="IKRPCService.cs" />
     <Compile Include="ILogger.cs" />
@@ -75,6 +76,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="www\hframe_nav_rad.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="www\navball_main.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="www\radalt.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -88,6 +95,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="www\navball.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="www\radalt_main.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="www\static\bezel.png">

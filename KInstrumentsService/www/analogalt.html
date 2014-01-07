@@ -1,0 +1,157 @@
+<% xr-include src="/header.html" %>
+<div class="center">
+    <div id="graph" class="gauge"></div>
+    <br />
+    <font size="+6"><span id="analogalt">0</span>m  <!--<span id="rate">0</span>--></font>
+    <script type="text/javascript">
+	PAPER_SIZE = 300;
+	GAUGE_SIZE = 140;
+	GAUGE_CENTER = PAPER_SIZE/2;
+
+        var proxy = getRPC();
+        var graph = document.getElementById("graph");
+
+	var papers = [];
+	$('.gauge').each(function(){
+		var paper = Raphael(this,PAPER_SIZE,PAPER_SIZE);
+		gauge(paper,10);
+		papers.push(paper);
+	});
+
+        function run(p) {
+
+            var x = p.PollData();
+
+            //if (hist.length > 10)
+            //    hist.shift();
+            
+            setTimeout(function () { run(p) }, 200);
+
+            var alt = x.Altitude;
+	    $('.gauge .hand').attr('data-kinstruments-value',alt);
+
+	    updateGauge(papers);
+
+            var unit = "";
+
+            if (alt > 1000000000) {
+                alt = alt / 1000000;
+                unit = "M";
+            } else {
+                if (alt > 1000000) {
+                    alt = alt / 1000;
+                    unit = "k";
+                }
+            }
+
+            $("#analogalt").text(Math.floor(alt) + unit);
+            //$("#rate").text(clrate());
+        }
+
+function updateGauge(papers) {
+	index = 0;
+	$('.second').each(function(){
+		rid = $(this).attr('data-kinstruments-rid');
+		value = $(this).attr('data-kinstruments-value');
+		max = $(this).attr('data-kinstruments-max');
+		
+		remainder = value % max;
+		deg = String((value / max) * 360);
+		hand = papers[index].getById(rid);
+		anim = Raphael.animation({transform: 'r'+deg+',150,150'},200,'linear');
+		hand.animate(anim);
+		index++;
+	});
+	index = 0;
+	$('.minute').each(function(){
+		rid = $(this).attr('data-kinstruments-rid');
+		value = $(this).attr('data-kinstruments-value');
+		max = $(this).attr('data-kinstruments-max');
+		
+		remainder = value % max;
+		deg = String((value / max) * 360);
+		hand = papers[index].getById(rid);
+		anim = Raphael.animation({transform: 'r'+deg+',150,150'},200,'linear');
+		hand.animate(anim);
+		index++;
+	});
+	index = 0;
+	$('.hour').each(function(){
+		rid = $(this).attr('data-kinstruments-rid');
+		value = $(this).attr('data-kinstruments-value');
+		max = $(this).attr('data-kinstruments-max');
+		
+		remainder = value % max;
+		deg = String((value / max) * 360);
+		hand = papers[index].getById(rid);
+		anim = Raphael.animation({transform: 'r'+deg+',150,150'},200,'linear');
+		hand.animate(anim);
+		index++;
+	});
+}
+
+	// Raphael gauge creation function
+function gauge(paper,ticks,hour,second){
+	var circle = paper.circle(GAUGE_CENTER,GAUGE_CENTER,GAUGE_SIZE);
+	circle.attr({ fill: '#000', stroke: '#aaa', 'stroke-width': 2 });
+	var deg = 360/ticks;
+	for(i=0;i<ticks;i++) {
+		var start_x = findCirclePoint(GAUGE_CENTER,GAUGE_SIZE-20,i,ticks,true);
+        	var start_y = findCirclePoint(GAUGE_CENTER,GAUGE_SIZE-20,i,ticks,false);
+        	var end_x = findCirclePoint(GAUGE_CENTER,GAUGE_SIZE-8,i,ticks,true);
+        	var end_y = findCirclePoint(GAUGE_CENTER,GAUGE_SIZE-8,i,ticks,false);
+        	tick = paper.path("M"+start_x+","+start_y+"L"+end_x+","+end_y);
+        	tick.attr({ stroke: '#ddd', 'stroke-width': 2 });
+        	tick.node.setAttribute('data-kinstruments-rid',tick.id);
+		label_x = findCirclePoint(GAUGE_CENTER,GAUGE_SIZE-33,i,ticks,true);
+        	label_y = findCirclePoint(GAUGE_CENTER,GAUGE_SIZE-33,i,ticks,false);
+      		label = paper.text(label_x,label_y,i);
+		label.attr({ fill: '#fff', 'font-size': '20' });
+    	}
+	var hour = paper.path('M150,165v-'+String(GAUGE_SIZE-60));
+	hour.attr({ stroke: '#ccc', 'stroke-width': 7 });
+	node = hour.node;
+	node.setAttribute('class','hand hour');
+	node.setAttribute('data-kinstruments-rid',hour.id);
+	node.setAttribute('data-kinstruments-value',0);
+	node.setAttribute('data-kinstruments-max',100000);
+
+	var minute = paper.path('M150,170v-'+String(GAUGE_SIZE-20));
+	minute.attr({ stroke: '#eee', 'stroke-width': 5 });
+	node = minute.node;
+	node.setAttribute('class','hand minute');
+	node.setAttribute('data-kinstruments-rid',minute.id);
+	node.setAttribute('data-kinstruments-value',0);
+	node.setAttribute('data-kinstruments-max',10000);
+	
+	var second = paper.path('M150,175v-'+String(GAUGE_SIZE+15));
+	second.attr({ stroke: 'red', 'stroke-width': 3 });
+	var node = second.node;
+	node.setAttribute('class','hand second');
+	node.setAttribute('data-kinstruments-rid',second.id);
+	node.setAttribute('data-kinstruments-value',0);
+	node.setAttribute('data-kinstruments-max',1000);	
+}
+
+function findCirclePoint(center,radius,currentVal,maxVal,sin) {
+	deg = (currentVal/maxVal) * 360;
+	var point;
+	if (sin == true){
+		point = center+Math.round(radius*Math.sin(deg*Math.PI/180));
+	} else {
+		point = center-Math.round(radius*Math.cos(deg*Math.PI/180));
+	}
+	return point;
+}
+
+function animateGauge(center,radius,futureVal,maxVal) {
+	var xFuture = findCirclePoint(center,radius,futureVal,maxVal,true);
+	var yFuture = findCirclePoint(center,radius,futureVal,maxVal,false);
+	var finalPathStr = 'M'+center+","+center+"L"+xFuture+","+yFuture;
+}
+
+        run(proxy);
+
+    </script>
+</div>
+<% xr-include src="/footer.html" %>
