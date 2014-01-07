@@ -3,5 +3,6 @@
 *.pdb
 *.mdf
 *.exe
+*.userprefs
 */obj/*
 */bin/*
