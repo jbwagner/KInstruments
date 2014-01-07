@@ -1,0 +1,95 @@
+﻿<div class="center">
+    <canvas id="graph" style="background:#000033; width:500px;height:300px;"></canvas>
+    <br />
+    <font size="+6"><span id="radalt">0</span>m  <span id="rate">0</span></font>
+    <script type="text/javascript">
+        var raltproxy = getRPC();
+        var graph = document.getElementById("graph");
+        var hist = new Array();
+
+        function draw_terrain_hist() {
+            if (hist.length == 0) return;
+
+            var ctx = graph.getContext("2d");
+            ctx.save();
+            ctx.clearRect(0, 0, graph.width, graph.height);
+            ctx.fillStyle = "#a78a68";
+            ctx.moveTo(0, 0);
+            ctx.beginPath();
+            var xscale = graph.width / 10;
+            var y = graph.height + 10;
+            var x = 0;
+            var yscale = graph.height / 2100;
+            for (var i = hist.length; i > 0; i--) {
+                y = graph.height + 10;
+                if (hist[i] < 3000) {
+                    y = yscale * hist[i];
+                    x = xscale * i;
+                    ctx.lineTo(x, y);
+                }
+            }
+
+            ctx.lineTo(0, y);
+            ctx.lineTo(0, graph.height + 100);
+            ctx.lineTo(xscale * (hist.length - 1), graph.height);
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function clrate() {
+            var sum = 0;
+            for (var i = 0; i < hist.length; i++) {
+                sum += hist[i];
+            }
+            var rate = "";
+            if (hist.length > 1) {
+                var avg = sum / hist.length;
+                var last = hist[hist.length - 1];
+                if (last < 10000) {
+                    var dif = last - avg;
+                    var rv = Math.floor(dif / 2);
+                    if (rv > 0) {
+                        rv = "+" + rv;
+                    }
+                    rate = "(" + rv + ")";
+                }
+            }
+            return rate;
+        }
+
+        function run(p) {
+
+            var x = p.PollData();
+
+            if (hist.length > 10)
+                hist.shift();
+
+            setTimeout(function () { run(p) }, 200);
+
+            var alt = x.Altitude - x.TerrainAltitude;
+            if (x.TerrainAltitude < 0) alt = x.Altitude;
+            hist.push(alt);
+
+            draw_terrain_hist();
+
+            var unit = "";
+
+            if (alt > 1000000000) {
+                alt = alt / 1000000;
+                unit = "M";
+            } else {
+                if (alt > 1000000) {
+                    alt = alt / 1000;
+                    unit = "k";
+                }
+            }
+
+            $("#radalt").text(Math.floor(alt) + unit);
+            $("#rate").text(clrate());
+        }
+
+        run(raltproxy);
+
+    </script>
+</div>

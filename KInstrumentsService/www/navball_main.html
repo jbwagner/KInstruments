@@ -1,0 +1,28 @@
+﻿<div class="center">
+<div style="position:absolute; z-index:3">
+Roll: <span id="rolltext">0</span>&deg;<br/>
+Pitch: <span id="pitchtext">0</span>&deg;<br/>
+</div>
+<canvas id="navball" style="background:black; width:500;height:500;"></canvas>
+    <br />
+    <span id="hdgtext">0</span>&deg;
+    <script type="text/javascript">
+        var data = navball_setup(document.getElementById("navball"));
+        data.proxy = getRPC();
+
+        function run(d) {
+
+            var x = d.proxy.PollData();
+            setTimeout(function () { run(d) }, 200);
+
+            d.Roll = x.Roll;
+            d.Pitch = x.Pitch;
+            d.Heading = x.Heading;
+
+            navball_once(d);
+        }
+
+        run(data);
+
+    </script>
+</div>
