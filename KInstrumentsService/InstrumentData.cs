@@ -36,6 +36,9 @@ namespace KInstrumentsService
         [DataMember]
         public int CurrentStage { get; set; }
 
+        [DataMember]
+        public bool GearDown { get; set; }
+
         public void UpdateFromVessel(Vessel vessel)
         {
             VesselName = vessel.vesselName;
@@ -59,6 +62,7 @@ namespace KInstrumentsService
             CurrentStage = vessel.currentStage;
             SurfaceVelocity = vessel.rb_velocity.magnitude;
 
+            GearDown = FlightInputHandler.state.gearDown;
         }
     }
 }

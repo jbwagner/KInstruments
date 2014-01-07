@@ -65,7 +65,7 @@
             if (hist.length > 10)
                 hist.shift();
 
-            setTimeout(function () { run(p) }, 200);
+            setTimeout(function () { p.func(p); }, 200);
 
             var alt = x.Altitude - x.TerrainAltitude;
             if (x.TerrainAltitude < 0) alt = x.Altitude;
@@ -88,7 +88,7 @@
             $("#radalt").text(Math.floor(alt) + unit);
             $("#rate").text(clrate());
         }
-
+        raltproxy.func = run;
         run(raltproxy);
 
     </script>

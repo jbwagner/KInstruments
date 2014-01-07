@@ -1,0 +1,28 @@
+﻿<div class="center">
+
+    <p>
+        <button id="gearbtn" class="btn btn-lg">Gear</button>
+    </p>
+    <br />
+    
+    <script type="text/javascript">
+        var gsproxy = getRPC();
+
+        function updatestates(gsproxy) {
+
+            setTimeout(function () { gsproxy.func(gsproxy); }, 500);
+
+            var data = gsproxy.PollData();
+            if (data.GearDown) {
+                $("#gearbtn").addClass("btn-success");
+                $("#gearbtn").removeClass("btn-danger");
+            } else {
+                $("#gearbtn").removeClass("btn-success");
+                $("#gearbtn").addClass("btn-danger");
+            }
+        }
+        gsproxy.func = updatestates;
+        updatestates(gsproxy);
+
+    </script>
+</div>

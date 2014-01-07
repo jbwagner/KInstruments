@@ -14,7 +14,8 @@ namespace KInstrumentsService
 
     public interface IControlInput
     {
-        ItemState ToggleGear();
+        void DeployGear();
+        void StowGear();
         void ToggleStage();
     }
 }

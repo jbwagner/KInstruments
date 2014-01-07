@@ -3,20 +3,34 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace kinstruments
 {
     internal class ConcreteControlInput : IControlInput
     {
 
-        public ItemState ToggleGear()
+        Vessel CurrentVessel
         {
-            throw new NotImplementedException();
+            get
+            {
+                return FlightGlobals.ActiveVessel;
+            }
+        }
+
+        public void DeployGear()
+        {
+            CurrentVessel.ActionGroups.SetGroup(KSPActionGroup.Gear, true);
+        }
+
+        public void StowGear()
+        {
+            CurrentVessel.ActionGroups.SetGroup(KSPActionGroup.Gear, false);
         }
 
         public void ToggleStage()
         {
-
+            Staging.ActivateNextStage();
         }
     }
 }

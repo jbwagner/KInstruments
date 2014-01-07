@@ -73,9 +73,11 @@ namespace KInstrumentsService
             WebServer.UriRequested += WebServer_FileNotFound;
 
             pageModels.Add(new KIWebContext(this) { PagePath = "/index.html", Title = "KInstruments Home" });
-            pageModels.Add(new KIWebContext(this) { PagePath = "/radalt.html", Title = "Radar Altitude" });            
+            pageModels.Add(new KIWebContext(this) { PagePath = "/radalt.html", Title = "Altitude (RADAR)" });
+            pageModels.Add(new KIWebContext(this) { PagePath = "/analogalt.html", Title = "Altitude (MSL)" }); 
             pageModels.Add(new KIWebContext(this) { PagePath = "/navball.html", Title = "Nav Ball" });
             pageModels.Add(new KIWebContext(this) { PagePath = "/hframe_nav_rad.html", Title = "Nav Ball + Radar Alt" });
+            pageModels.Add(new KIWebContext(this) { PagePath = "/gear_stage.html", Title = "Gear / Stage" });
         }
 
 
