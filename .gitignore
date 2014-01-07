@@ -1,6 +1,7 @@
 # git ignore file
 *.dll
 *.pdb
+*.mdf
 *.exe
 */obj/*
 */bin/*
